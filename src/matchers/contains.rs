@@ -25,6 +25,16 @@ pub struct Contains<T> {
 }
 
 impl<T> Contains<T> {
+  /// Constructs new `Contains` matcher with the default options: order is not checked and
+  /// actual vector can have more items.
+  pub fn new(items: Vec<T>) -> Self {
+    Self {
+      items,
+      exactly: false,
+      in_order: false,
+    }
+  }
+
   pub fn exactly(mut self) -> Contains<T> {
     self.exactly = true;
     self
@@ -33,6 +43,18 @@ impl<T> Contains<T> {
   pub fn in_order(mut self) -> Contains<T> {
     self.in_order = true;
     self
+  }
+}
+
+impl<T> From<Vec<T>> for Contains<T> {
+  fn from(items: Vec<T>) -> Contains<T> {
+    Contains::new(items)
+  }
+}
+
+impl<T> From<T> for Contains<T> {
+  fn from(item: T) -> Contains<T> {
+    Contains::new(vec![item])
   }
 }
 
@@ -102,10 +124,10 @@ fn is_next_index(current_index: usize, previous_index: &Option<usize>) -> bool {
   true
 }
 
-pub fn contains<T>(items: Vec<T>) -> Contains<T> {
-  Contains {
-    items,
-    exactly: false,
-    in_order: false,
-  }
+/// Creates matcher that checks if actual data contains give item(s).
+pub fn contains<T, I>(item: I) -> Contains<T>
+where
+  I: Into<Contains<T>>,
+{
+  item.into()
 }
