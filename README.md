@@ -148,7 +148,8 @@ assert_that!(Some(1), not(none::<u8>()));
 
 ```rust
 assert_that!(&vec!(1, 2, 3), contains(vec!(1, 2)));
-assert_that!(&vec!(1, 2, 3), not(contains(vec!(4i))));
+assert_that!(&vec!(1, 2, 3), contains(1));
+assert_that!(&vec!(1, 2, 3), not(contains(4i)));
 
 assert_that!(&vec!(1, 2, 3), contains(vec!(1, 2, 3)).exactly());
 assert_that!(&vec!(1, 2, 3), not(contains(vec!(1, 2)).exactly()));
