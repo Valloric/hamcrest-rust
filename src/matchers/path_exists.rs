@@ -61,7 +61,8 @@ impl<'a> Matcher<&'a Path> for PathExists {
     expect(
       fs::metadata(actual).is_ok(),
       format!("{} was missing", actual.display()),
-    ).and(self.match_path_type(actual))
+    )
+    .and(self.match_path_type(actual))
   }
 }
 
