@@ -12,20 +12,66 @@ extern crate hamcrest2;
 mod err {
   use hamcrest2::prelude::*;
 
-  #[test]
-  fn err_no_explicit_type() {
-    let var: Result<i8, ()> = Err(());
-    assert_that!(var, err());
+  mod as_move {
+    use super::*;
+
+    #[test]
+    fn err_no_explicit_type() {
+      let var: Result<i8, ()> = Err(());
+      assert_that!(var, err());
+    }
+
+    #[test]
+    fn err_is_err() {
+      assert_that!(Err(()), err::<i8, ()>());
+    }
+
+    #[test]
+    fn ok_is_not_err() {
+      let var: Result<i8, ()> = Ok(5);
+      assert_that!(var, not(err()));
+    }
   }
 
-  #[test]
-  fn err_is_err() {
-    assert_that!(Err(()), err::<i8, ()>());
+  mod as_ref {
+    use super::*;
+
+    #[test]
+    fn err_no_explicit_type() {
+      let var: Result<i8, ()> = Err(());
+      assert_that!(&var, err());
+    }
+
+    #[test]
+    fn err_is_err() {
+      assert_that!(&Err(()), err::<i8, ()>());
+    }
+
+    #[test]
+    fn ok_is_not_err() {
+      let var: Result<i8, ()> = Ok(5);
+      assert_that!(&var, not(err()));
+    }
   }
 
-  #[test]
-  fn ok_is_not_err() {
-    let var: Result<i8, ()> = Ok(5);
-    assert_that!(var, not(err()));
+  mod as_mut_ref {
+    use super::*;
+
+    #[test]
+    fn err_no_explicit_type() {
+      let mut var: Result<i8, ()> = Err(());
+      assert_that!(&mut var, err());
+    }
+
+    #[test]
+    fn err_is_err() {
+      assert_that!(&mut Err(()), err::<i8, ()>());
+    }
+
+    #[test]
+    fn ok_is_not_err() {
+      let mut var: Result<i8, ()> = Ok(5);
+      assert_that!(&mut var, not(err()));
+    }
   }
 }
