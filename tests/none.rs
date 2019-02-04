@@ -13,19 +13,63 @@ extern crate hamcrest2;
 mod none {
   use hamcrest2::prelude::*;
 
-  #[test]
-  fn none_no_explicit_type() {
-    let var: Option<i8> = None;
-    assert_that!(var, none());
+  mod as_move {
+    use super::*;
+
+    #[test]
+    fn none_no_explicit_type() {
+      let var: Option<i8> = None;
+      assert_that!(var, none());
+    }
+
+    #[test]
+    fn none_is_none() {
+      assert_that!(None, is(none::<i8>()));
+    }
+
+    #[test]
+    fn some_is_not_none() {
+      assert_that!(Some(1), is_not(none()));
+    }
   }
 
-  #[test]
-  fn none_is_none() {
-    assert_that!(None, is(none::<i8>()));
+  mod as_ref {
+    use super::*;
+
+    #[test]
+    fn none_no_explicit_type() {
+      let var: Option<i8> = None;
+      assert_that!(&var, none());
+    }
+
+    #[test]
+    fn none_is_none() {
+      assert_that!(&None, is(none::<i8>()));
+    }
+
+    #[test]
+    fn some_is_not_none() {
+      assert_that!(&Some(1), is_not(none()));
+    }
   }
 
-  #[test]
-  fn some_is_not_none() {
-    assert_that!(Some(1), is_not(none()));
+  mod as_mut_ref {
+    use super::*;
+
+    #[test]
+    fn none_no_explicit_type() {
+      let mut var: Option<i8> = None;
+      assert_that!(&mut var, none());
+    }
+
+    #[test]
+    fn none_is_none() {
+      assert_that!(&mut None, is(none::<i8>()));
+    }
+
+    #[test]
+    fn some_is_not_none() {
+      assert_that!(&mut Some(1), is_not(none()));
+    }
   }
 }

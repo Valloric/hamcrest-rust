@@ -143,9 +143,12 @@ assert_that!(var, not(some()));
 ```rust
 let var: Option<i8> = None;
 assert_that!(var, none());
+assert_that!(&var, none());
 
 assert_that!(None, none::<u8>());
+assert_that!(&None, none::<u8>());
 assert_that!(Some(1), not(none::<u8>()));
+assert_that!(&Some(1), not(none::<u8>()));
 ```
 
 ## Collection Matchers
