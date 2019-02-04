@@ -6,6 +6,7 @@
 // option. This file may not be copied, modified, or distributed
 // except according to those terms.
 
+use std::borrow::Borrow;
 use std::fmt;
 use std::marker::PhantomData;
 
@@ -21,9 +22,9 @@ impl<T> fmt::Display for IsSome<T> {
   }
 }
 
-impl<T: fmt::Debug> Matcher<Option<T>> for IsSome<T> {
-  fn matches(&self, actual: Option<T>) -> MatchResult {
-    match actual {
+impl<T: fmt::Debug, B: Borrow<Option<T>>> Matcher<B> for IsSome<T> {
+  fn matches(&self, actual: B) -> MatchResult {
+    match actual.borrow() {
       None => Err("was None".to_string()),
       Some(_) => success(),
     }

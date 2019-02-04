@@ -131,11 +131,14 @@ assert_that!(&var, not(err()));
 ```rust
 let var: Option<i8> = Some(5);
 assert_that!(var, some());
+assert_that!(&var, some());
 
 assert_that!(Some(1), some::<u8>());
+assert_that!(&Some(1), some::<u8>());
 
 let var: Option<i8> = None;
 assert_that!(var, not(some()));
+assert_that!(&var, not(some()));
 ```
 
 ### none
