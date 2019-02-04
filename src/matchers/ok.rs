@@ -6,6 +6,7 @@
 // option. This file may not be copied, modified, or distributed
 // except according to those terms.
 
+use std::borrow::Borrow;
 use std::fmt;
 use std::marker::PhantomData;
 
@@ -22,13 +23,13 @@ impl<T, E> fmt::Display for IsOk<T, E> {
   }
 }
 
-impl<T, E> Matcher<Result<T, E>> for IsOk<T, E>
+impl<T, E, B: Borrow<Result<T, E>>> Matcher<B> for IsOk<T, E>
 where
   T: fmt::Debug,
   E: fmt::Debug,
 {
-  fn matches(&self, actual: Result<T, E>) -> MatchResult {
-    match actual {
+  fn matches(&self, actual: B) -> MatchResult {
+    match actual.borrow() {
       e @ Err(_) => Err(format!("was {:?}", e)),
       Ok(_) => success(),
     }

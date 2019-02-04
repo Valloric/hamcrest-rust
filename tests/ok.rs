@@ -12,20 +12,66 @@ extern crate hamcrest2;
 mod ok {
   use hamcrest2::prelude::*;
 
-  #[test]
-  fn ok_no_explicit_type() {
-    let var: Result<i8, ()> = Ok(5);
-    assert_that!(var, ok());
+  mod as_move {
+    use super::*;
+
+    #[test]
+    fn ok_no_explicit_type() {
+      let var: Result<i8, ()> = Ok(5);
+      assert_that!(var, ok());
+    }
+
+    #[test]
+    fn ok_is_ok() {
+      assert_that!(Ok(5), ok::<i8, ()>());
+    }
+
+    #[test]
+    fn err_is_not_ok() {
+      let var: Result<i8, ()> = Err(());
+      assert_that!(var, not(ok()));
+    }
   }
 
-  #[test]
-  fn ok_is_ok() {
-    assert_that!(Ok(5), ok::<i8, ()>());
+  mod as_ref {
+    use super::*;
+
+    #[test]
+    fn ok_no_explicit_type() {
+      let var: Result<i8, ()> = Ok(5);
+      assert_that!(&var, ok());
+    }
+
+    #[test]
+    fn ok_is_ok() {
+      assert_that!(&Ok(5), ok::<i8, ()>());
+    }
+
+    #[test]
+    fn err_is_not_ok() {
+      let var: Result<i8, ()> = Err(());
+      assert_that!(&var, not(ok()));
+    }
   }
 
-  #[test]
-  fn err_is_not_ok() {
-    let var: Result<i8, ()> = Err(());
-    assert_that!(var, not(ok()));
+  mod as_mut_ref {
+    use super::*;
+
+    #[test]
+    fn ok_no_explicit_type() {
+      let mut var: Result<i8, ()> = Ok(5);
+      assert_that!(&mut var, ok());
+    }
+
+    #[test]
+    fn ok_is_ok() {
+      assert_that!(&mut Ok(5), ok::<i8, ()>());
+    }
+
+    #[test]
+    fn err_is_not_ok() {
+      let mut var: Result<i8, ()> = Err(());
+      assert_that!(&mut var, not(ok()));
+    }
   }
 }

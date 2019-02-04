@@ -101,11 +101,14 @@ assert_that!(var, has(5));
 ```rust
 let var: Result<i8, String> = Ok(5);
 assert_that!(var, ok());
+assert_that!(&var, ok());
 
 assert_that!(Ok(5), ok::<i8, String>());
+assert_that!(&Ok(5), ok::<i8, String>());
 
 let var: Result<i8, String> = Err("bad!".to_string());
 assert_that!(var, not(ok()));
+assert_that!(&var, not(ok()));
 ```
 
 ### err
