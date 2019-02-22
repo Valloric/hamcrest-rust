@@ -32,19 +32,31 @@ mod equal_to {
   #[test]
   fn equality_with_special_partial_eq() {
     assert_that!(A(1), eq(B(1)));
+    assert_that!(&A(1), eq(B(1)));
+    assert_that!(&mut A(1), eq(B(1)));
     assert_that!(B(1), eq(A(1)));
+    assert_that!(&B(1), eq(A(1)));
+    assert_that!(&mut B(1), eq(A(1)));
   }
 
   #[test]
   fn equality_of_ints() {
     assert_that!(1, is(equal_to(1)));
+    assert_that!(&1, is(equal_to(1)));
+    assert_that!(&mut 1, is(equal_to(1)));
     assert_that!(1, eq(1));
+    assert_that!(&1, eq(1));
+    assert_that!(&mut 1, eq(1));
   }
 
   #[test]
   #[should_panic]
   fn unsuccessful_match() {
     assert_that!(2, is(equal_to(1)));
+    assert_that!(&2, is(equal_to(1)));
+    assert_that!(&mut 2, is(equal_to(1)));
     assert_that!(2, eq(1));
+    assert_that!(&2, eq(1));
+    assert_that!(&mut 2, eq(1));
   }
 }
