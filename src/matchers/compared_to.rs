@@ -10,6 +10,7 @@
 // option. This file may not be copied, modified, or distributed
 // except according to those terms.
 
+use std::borrow::Borrow;
 use std::fmt;
 
 use core::*;
@@ -39,19 +40,20 @@ impl<T: fmt::Debug> fmt::Display for ComparedTo<T> {
   }
 }
 
-impl<T: PartialOrd + fmt::Debug> Matcher<T> for ComparedTo<T> {
-  fn matches(&self, actual: T) -> MatchResult {
+impl<T: PartialOrd + fmt::Debug, B: Borrow<T>> Matcher<B> for ComparedTo<T> {
+  fn matches(&self, actual: B) -> MatchResult {
+    let actual_borrowed = actual.borrow();
     let it_succeeded = match self.operation {
-      CompareOperation::LessOrEqual => actual <= self.right_hand_side,
-      CompareOperation::LessThan => actual < self.right_hand_side,
-      CompareOperation::GreaterOrEqual => actual >= self.right_hand_side,
-      CompareOperation::GreaterThan => actual > self.right_hand_side,
+      CompareOperation::LessOrEqual => actual_borrowed <= &self.right_hand_side,
+      CompareOperation::LessThan => actual_borrowed < &self.right_hand_side,
+      CompareOperation::GreaterOrEqual => actual_borrowed >= &self.right_hand_side,
+      CompareOperation::GreaterThan => actual_borrowed > &self.right_hand_side,
     };
 
     if it_succeeded {
       success()
     } else {
-      Err(format!("was {:?}", actual))
+      Err(format!("was {:?}", actual_borrowed))
     }
   }
 }

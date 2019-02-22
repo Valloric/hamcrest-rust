@@ -17,59 +17,83 @@ mod compared_to {
   #[test]
   fn ints_less_than() {
     assert_that!(4, is(less_than(5)));
+    assert_that!(&4, is(less_than(5)));
+    assert_that!(&mut 4, is(less_than(5)));
   }
 
   #[test]
   #[should_panic]
   fn unsuccessful_less_than() {
     assert_that!(4, is(less_than(3)));
+    assert_that!(&4, is(less_than(3)));
+    assert_that!(&mut 4, is(less_than(3)));
   }
 
   #[test]
   #[should_panic]
   fn less_than_is_not_equal() {
     assert_that!(2, is(less_than(2)));
+    assert_that!(&2, is(less_than(2)));
+    assert_that!(&mut 2, is(less_than(2)));
   }
 
   #[test]
   fn ints_greater_than() {
     assert_that!(8, is(greater_than(5)));
+    assert_that!(&8, is(greater_than(5)));
+    assert_that!(&mut 8, is(greater_than(5)));
   }
 
   #[test]
   #[should_panic]
   fn unsuccessful_greater_than() {
     assert_that!(1, is(greater_than(3)));
+    assert_that!(&1, is(greater_than(3)));
+    assert_that!(&mut 1, is(greater_than(3)));
   }
 
   #[test]
   #[should_panic]
   fn greater_than_is_not_equal() {
     assert_that!(2, is(greater_than(2)));
+    assert_that!(&2, is(greater_than(2)));
+    assert_that!(&mut 2, is(greater_than(2)));
   }
 
   #[test]
   fn ints_less_than_or_equal() {
     assert_that!(3, is(less_than_or_equal_to(7)));
+    assert_that!(&3, is(less_than_or_equal_to(7)));
+    assert_that!(&mut 3, is(less_than_or_equal_to(7)));
     assert_that!(3, is(less_than_or_equal_to(3)));
+    assert_that!(&3, is(less_than_or_equal_to(3)));
+    assert_that!(&mut 3, is(less_than_or_equal_to(3)));
   }
 
   #[test]
   #[should_panic]
   fn unsuccessful_less_than_or_equal() {
     assert_that!(4, is(less_than_or_equal_to(3)));
+    assert_that!(&4, is(less_than_or_equal_to(3)));
+    assert_that!(&mut 4, is(less_than_or_equal_to(3)));
   }
 
   #[test]
   fn ints_greater_than_or_equal() {
     assert_that!(6, is(greater_than_or_equal_to(5)));
+    assert_that!(&6, is(greater_than_or_equal_to(5)));
+    assert_that!(&mut 6, is(greater_than_or_equal_to(5)));
     assert_that!(8, is(greater_than_or_equal_to(8)));
+    assert_that!(&8, is(greater_than_or_equal_to(8)));
+    assert_that!(&mut 8, is(greater_than_or_equal_to(8)));
   }
 
   #[test]
   #[should_panic]
   fn unsuccessful_greater_than_or_equal() {
     assert_that!(4, is(greater_than_or_equal_to(5)));
+    assert_that!(&4, is(greater_than_or_equal_to(5)));
+    assert_that!(&mut 4, is(greater_than_or_equal_to(5)));
   }
 
 }
