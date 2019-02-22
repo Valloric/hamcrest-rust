@@ -15,17 +15,20 @@ mod regex {
   #[test]
   fn successful_match() {
     assert_that!("123", matches_regex(r"^\d+$"));
+    assert_that!("123".to_owned(), matches_regex(r"^\d+$"));
   }
 
   #[test]
   fn successful_negative_match() {
     assert_that!("abc", does_not(matches_regex(r"\d")));
+    assert_that!("abc".to_owned(), does_not(matches_regex(r"\d")));
   }
 
   #[test]
   #[should_panic]
   fn unsuccessful_match() {
     assert_that!("abc", matches_regex(r"\d"));
+    assert_that!("abc".to_owned(), matches_regex(r"\d"));
   }
 
 }

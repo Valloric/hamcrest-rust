@@ -7,6 +7,7 @@
 // except according to those terms.
 
 use regex::Regex;
+use std::borrow::Borrow;
 use std::fmt;
 
 use core::*;
@@ -21,12 +22,12 @@ impl fmt::Display for MatchesRegex {
   }
 }
 
-impl<'a> Matcher<&'a str> for MatchesRegex {
-  fn matches(&self, actual: &'a str) -> MatchResult {
-    if self.regex.is_match(actual) {
+impl<B: Borrow<str>> Matcher<B> for MatchesRegex {
+  fn matches(&self, actual: B) -> MatchResult {
+    if self.regex.is_match(actual.borrow()) {
       success()
     } else {
-      Err(format!("was {:?}", actual))
+      Err(format!("was {:?}", actual.borrow()))
     }
   }
 }
