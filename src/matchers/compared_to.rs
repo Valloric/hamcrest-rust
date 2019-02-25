@@ -46,7 +46,9 @@ impl<T: PartialOrd + fmt::Debug, B: Borrow<T>> Matcher<B> for ComparedTo<T> {
     let it_succeeded = match self.operation {
       CompareOperation::LessOrEqual => actual_borrowed <= &self.right_hand_side,
       CompareOperation::LessThan => actual_borrowed < &self.right_hand_side,
-      CompareOperation::GreaterOrEqual => actual_borrowed >= &self.right_hand_side,
+      CompareOperation::GreaterOrEqual => {
+        actual_borrowed >= &self.right_hand_side
+      }
       CompareOperation::GreaterThan => actual_borrowed > &self.right_hand_side,
     };
 

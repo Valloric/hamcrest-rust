@@ -47,5 +47,8 @@ where
 }
 
 pub fn equal_to<T, D>(expected: T) -> EqualTo<T, D> {
-  EqualTo { expected, marker: PhantomData }
+  EqualTo {
+    expected,
+    marker: PhantomData,
+  }
 }
