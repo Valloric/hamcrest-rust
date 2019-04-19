@@ -53,10 +53,35 @@ mod equal_to {
   #[should_panic]
   fn unsuccessful_match() {
     assert_that!(2, is(equal_to(1)));
+  }
+
+  #[test]
+  #[should_panic]
+  fn unsuccessful_match_ref() {
     assert_that!(&2, is(equal_to(1)));
+  }
+
+  #[test]
+  #[should_panic]
+  fn unsuccessful_match_mut() {
     assert_that!(&mut 2, is(equal_to(1)));
+  }
+
+  #[test]
+  #[should_panic]
+  fn unsuccessful_match_short() {
     assert_that!(2, eq(1));
+  }
+
+  #[test]
+  #[should_panic]
+  fn unsuccessful_match_short_ref() {
     assert_that!(&2, eq(1));
+  }
+
+  #[test]
+  #[should_panic]
+  fn unsuccessful_match_short_mut() {
     assert_that!(&mut 2, eq(1));
   }
 

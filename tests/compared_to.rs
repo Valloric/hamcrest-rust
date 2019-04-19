@@ -25,7 +25,17 @@ mod compared_to {
   #[should_panic]
   fn unsuccessful_less_than() {
     assert_that!(4, is(less_than(3)));
+  }
+
+  #[test]
+  #[should_panic]
+  fn unsuccessful_less_than_ref() {
     assert_that!(&4, is(less_than(3)));
+  }
+
+  #[test]
+  #[should_panic]
+  fn unsuccessful_less_than_mut() {
     assert_that!(&mut 4, is(less_than(3)));
   }
 
@@ -33,7 +43,17 @@ mod compared_to {
   #[should_panic]
   fn less_than_is_not_equal() {
     assert_that!(2, is(less_than(2)));
+  }
+
+  #[test]
+  #[should_panic]
+  fn less_than_is_not_equal_ref() {
     assert_that!(&2, is(less_than(2)));
+  }
+
+  #[test]
+  #[should_panic]
+  fn less_than_is_not_equal_mut() {
     assert_that!(&mut 2, is(less_than(2)));
   }
 
@@ -48,7 +68,17 @@ mod compared_to {
   #[should_panic]
   fn unsuccessful_greater_than() {
     assert_that!(1, is(greater_than(3)));
+  }
+
+  #[test]
+  #[should_panic]
+  fn unsuccessful_greater_than_ref() {
     assert_that!(&1, is(greater_than(3)));
+  }
+
+  #[test]
+  #[should_panic]
+  fn unsuccessful_greater_than_mut() {
     assert_that!(&mut 1, is(greater_than(3)));
   }
 
@@ -56,7 +86,17 @@ mod compared_to {
   #[should_panic]
   fn greater_than_is_not_equal() {
     assert_that!(2, is(greater_than(2)));
+  }
+
+  #[test]
+  #[should_panic]
+  fn greater_than_is_not_equal_ref() {
     assert_that!(&2, is(greater_than(2)));
+  }
+
+  #[test]
+  #[should_panic]
+  fn greater_than_is_not_equal_mut() {
     assert_that!(&mut 2, is(greater_than(2)));
   }
 
@@ -74,7 +114,17 @@ mod compared_to {
   #[should_panic]
   fn unsuccessful_less_than_or_equal() {
     assert_that!(4, is(less_than_or_equal_to(3)));
+  }
+
+  #[test]
+  #[should_panic]
+  fn unsuccessful_less_than_or_equal_ref() {
     assert_that!(&4, is(less_than_or_equal_to(3)));
+  }
+
+  #[test]
+  #[should_panic]
+  fn unsuccessful_less_than_or_equal_mut() {
     assert_that!(&mut 4, is(less_than_or_equal_to(3)));
   }
 
@@ -92,8 +142,17 @@ mod compared_to {
   #[should_panic]
   fn unsuccessful_greater_than_or_equal() {
     assert_that!(4, is(greater_than_or_equal_to(5)));
-    assert_that!(&4, is(greater_than_or_equal_to(5)));
-    assert_that!(&mut 4, is(greater_than_or_equal_to(5)));
   }
 
+  #[test]
+  #[should_panic]
+  fn unsuccessful_greater_than_or_equal_ref() {
+    assert_that!(&4, is(greater_than_or_equal_to(5)));
+  }
+
+  #[test]
+  #[should_panic]
+  fn unsuccessful_greater_than_or_equal_mut() {
+    assert_that!(&mut 4, is(greater_than_or_equal_to(5)));
+  }
 }

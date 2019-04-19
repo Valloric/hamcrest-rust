@@ -28,7 +28,11 @@ mod regex {
   #[should_panic]
   fn unsuccessful_match() {
     assert_that!("abc", matches_regex(r"\d"));
-    assert_that!("abc".to_owned(), matches_regex(r"\d"));
   }
 
+  #[test]
+  #[should_panic]
+  fn unsuccessful_match_owned() {
+    assert_that!("abc".to_owned(), matches_regex(r"\d"));
+  }
 }
