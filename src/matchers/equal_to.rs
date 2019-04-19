@@ -10,45 +10,37 @@
 // option. This file may not be copied, modified, or distributed
 // except according to those terms.
 
-use std::borrow::Borrow;
 use std::fmt;
-use std::marker::PhantomData;
 
 use core::*;
 
-pub struct EqualTo<T, D> {
+pub struct EqualTo<T> {
   expected: T,
-  marker: PhantomData<D>,
 }
 
-impl<T, D> fmt::Display for EqualTo<T, D>
+impl<T> fmt::Display for EqualTo<T>
 where
   T: fmt::Debug,
-  D: fmt::Debug,
 {
   fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
     self.expected.fmt(f)
   }
 }
 
-impl<T, U, B> Matcher<B> for EqualTo<U, T>
+impl<T, U> Matcher<T> for EqualTo<U>
 where
   U: PartialEq<T> + fmt::Debug,
   T: fmt::Debug,
-  B: Borrow<T>,
 {
-  fn matches(&self, actual: B) -> MatchResult {
-    if self.expected.eq(actual.borrow()) {
+  fn matches(&self, actual: T) -> MatchResult {
+    if self.expected.eq(&actual) {
       success()
     } else {
-      Err(format!("was {:?}", actual.borrow()))
+      Err(format!("was {:?}", actual))
     }
   }
 }
 
-pub fn equal_to<T, D>(expected: T) -> EqualTo<T, D> {
-  EqualTo {
-    expected,
-    marker: PhantomData,
-  }
+pub fn equal_to<T>(expected: T) -> EqualTo<T> {
+  EqualTo { expected }
 }
