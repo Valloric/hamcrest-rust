@@ -59,4 +59,30 @@ mod equal_to {
     assert_that!(&2, eq(1));
     assert_that!(&mut 2, eq(1));
   }
+
+  #[test]
+  fn equality_of_strings() {
+    assert_that!("", is(equal_to("")));
+    assert_that!("", is(equal_to(String::new())));
+    assert_that!(String::new(), is(equal_to("")));
+    assert_that!("", is(equal_to(String::new())));
+  }
+
+  #[test]
+  fn equality_of_floats_slice_owned() {
+    let slice = [1.0, 2.0, 3.0];
+    assert_that!(slice, eq(&[1.0, 2.0, 3.0]));
+  }
+
+  #[test]
+  fn equality_of_floats_slice_ref() {
+    let slice = [1.0, 2.0, 3.0];
+    assert_that!(&slice, eq(&[1.0, 2.0, 3.0]));
+  }
+
+  #[test]
+  fn equality_of_floats_slice_mut() {
+    let mut slice = [1.0, 2.0, 3.0];
+    assert_that!(&mut slice, eq(&[1.0, 2.0, 3.0]));
+  }
 }
