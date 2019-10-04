@@ -33,8 +33,8 @@ authors = [
 ]
 
 [dependencies]
-num = "0.1.*"
-regex = "1.*"
+num = "0.2"
+regex = "1"
 
 [badges]
 travis-ci = { repository = "Valloric/hamcrest2-rust" }
